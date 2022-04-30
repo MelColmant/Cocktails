@@ -3,4 +3,5 @@ export interface Cocktail {
     cocktailName: string;
     cocktailImageLink?: string;
     cocktailIngredients?: string[];
+    cocktailInstructions?: string;
 }

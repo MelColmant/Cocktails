@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Pressable, Text, TextInput, StyleSheet, View } from 'react-native';
+import { Image, Pressable, Text, TextInput, StyleSheet, View } from 'react-native';
 import { deleteItemAsync, setItemAsync, getItemAsync } from 'expo-secure-store';
 
 const Landing = ({ navigation }: { navigation: any }): JSX.Element => {
@@ -36,6 +36,9 @@ const Landing = ({ navigation }: { navigation: any }): JSX.Element => {
         <View style={styles.container}>
             {!name ?
                 <>
+                    <Text style={{ ...styles.welcomeText, paddingBottom: 15 }}>
+                        Please enter your name...
+                    </Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={setText}
@@ -59,6 +62,12 @@ const Landing = ({ navigation }: { navigation: any }): JSX.Element => {
                         <Text style={styles.text}>{deleteText}</Text>
                     </Pressable>
                 </>
+            }
+            {name &&
+                <Image
+                    style={styles.image}
+                    source={require('../assets/poop_co.png')}
+                />
             }
         </View>
     )
@@ -96,6 +105,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    image: {
+        width: 150,
+        height: 150,
+    }
 });
 
 export default Landing;

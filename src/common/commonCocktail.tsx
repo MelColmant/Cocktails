@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Cocktail } from "../../services/datatypes";
 import { getCocktailsFromApiAsync } from "../../services/index";
 import { Urls } from "../../services/urls";
-import { Image, Text, StyleSheet, View, FlatList, Pressable } from "react-native";
+import { Image, Text, StyleSheet, View, FlatList, Pressable, ScrollView } from "react-native";
 
 const CommonCocktail = ({ url, cocktailId }: { url: Urls, cocktailId?: string }): JSX.Element => {
     const changeText: string = 'Another one !'
@@ -38,12 +38,20 @@ const CommonCocktail = ({ url, cocktailId }: { url: Urls, cocktailId?: string })
                             keyExtractor={(item: string, index: number) => index.toString()}
                         />
                     </View>
-                    {!cocktailId &&
-                        <Pressable style={styles.button} onPress={() => getData()}>
-                            <Text style={styles.buttonText}>{changeText}</Text>
-                        </Pressable>
-                    }
+                    <ScrollView>
+                        <View style={styles.insideContainer}>
+                            <View style={styles.instructions}>
+                                <Text style={styles.instructionsText}>{data.cocktailInstructions}</Text>
+                            </View>
+                            {!cocktailId &&
+                                <Pressable style={styles.button} onPress={() => getData()}>
+                                    <Text style={styles.buttonText}>{changeText}</Text>
+                                </Pressable>
+                            }
+                        </View>
+                    </ScrollView>
                 </View>
+
             }
         </>
     )
@@ -62,6 +70,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: 'black',
         fontWeight: 'bold',
+        marginTop: 20,
     },
     image: {
         marginTop: 15,
@@ -94,6 +103,18 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 16,
         color: 'white',
+    },
+    instructions: {
+        paddingTop: 10,
+        marginHorizontal: 25,
+    },
+    instructionsText: {
+        lineHeight: 22,
+    },
+    insideContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 15,
     }
 })
 

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getCocktailsFromApiAsync } from "../services";
 import { Urls } from "../services/urls";
-import { View, StyleSheet, Text, TextInput, Pressable, FlatList, Keyboard } from "react-native";
+import { View, StyleSheet, Text, TextInput, Pressable, FlatList, Keyboard, Image } from "react-native";
 import { Cocktail } from "../services/datatypes";
 
 const SearchCocktail = ({ navigation }: { navigation: any }): JSX.Element => {
@@ -33,6 +33,7 @@ const SearchCocktail = ({ navigation }: { navigation: any }): JSX.Element => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.titleText}>Enter an ingredient...</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setText}
@@ -52,7 +53,13 @@ const SearchCocktail = ({ navigation }: { navigation: any }): JSX.Element => {
                 </View>
             }
             {data && isString(data) &&
-                <Text style={styles.noData}>{data}</Text>
+                <>
+                    <Image
+                        style={styles.image}
+                        source={require('../assets/poop_co.png')}
+                    />
+                    <Text style={styles.noData}>{data}</Text>
+                </>
             }
         </View>
     )
@@ -73,6 +80,7 @@ const styles = StyleSheet.create({
         width: '50%',
         borderRadius: 5,
         fontSize: 16,
+        marginBottom: 15,
     },
     button: {
         paddingVertical: 5,
@@ -106,6 +114,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#993d94',
         marginTop: 15,
+    },
+    image: {
+        width: 150,
+        height: 150,
+    },
+    titleText: {
+        fontSize: 21,
+        color: 'black',
+        fontWeight: 'bold',
+        marginBottom: 15,
     }
 });
 export default SearchCocktail;

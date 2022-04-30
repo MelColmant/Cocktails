@@ -17,12 +17,17 @@ export const getCocktailsFromApiAsync = async (url: Urls, parameter?: string) =>
 
 const randomOrIdResponseToCocktail = (apiReturn: any): Cocktail => {
     const ingredientsArray: string[] = [];
+    const measuresArray: string[] = [];
+    const ingredientsMeasuresArray: string[] = [];
     (Object.entries(apiReturn.drinks[0])).map(([key, value]) => { if (key.includes('strIngredient') && value !== null && value !== '') ingredientsArray.push(value as string) });
+    (Object.entries(apiReturn.drinks[0])).map(([key, value]) => { if (key.includes('strMeasure') && value !== null && value !== '') measuresArray.push(value as string) });
+    ingredientsArray.forEach((el, index) => { ingredientsMeasuresArray.push(el + ' - ' + measuresArray[index]) });
     const cocktail: Cocktail = {
         cocktailId: apiReturn.drinks[0].idDrink,
         cocktailName: apiReturn.drinks[0].strDrink,
         cocktailImageLink: apiReturn.drinks[0].strDrinkThumb,
-        cocktailIngredients: ingredientsArray,
+        cocktailIngredients: ingredientsMeasuresArray,
+        cocktailInstructions: apiReturn.drinks[0].strInstructions,
     }
     return cocktail;
 }
